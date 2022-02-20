@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta remark="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap-3.3.7.css" type="text/css" media="screen" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style type="text/css">
+        label {
+            font-size: 20px;
+            margin-left: 3vw;
+
+        }
+
+        .keywords {
+            margin-left: 10vw;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">ToDoList</h3>
+            </div>
+            <div class="panel-body form-inline">
+                <!-- <label for="">
+                    Id:
+                    <input type="text" class="form-control" v-model="mass">
+                </label> -->
+                <label for="">
+                    事项:
+                    <input type="text" class="form-control" v-model="mass">
+                </label>
+                <label for="">
+                    备注:
+                    <input type="text" class="form-control" v-model="remark">
+                </label>
+
+                <input type="button" class="btn btn-primary" value="添加" @click="add()">
+                <input type="button" class="btn btn-primary" value="延时添加" @click="delayAdd()">
+                <label for="" class="keywords">
+                    搜索关键词:
+                    <input type="text" class="form-control" v-model="keywords">
+                </label>
+
+            </div>
+
+        </div>
+
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+
+                    <th>Id</th>
+                    <th>事项</th>
+                    <th>备注</th>
+                    <th>时间</th>
+                    <th>操作</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr v-for="item in search(keywords)" v-bind:key="item.id">
+                    <td><input type="checkbox">{{item.id}}</td>
+                    <td>{{item.mass}}</td>
+                    <td>{{item.remark}}</td>
+                    <td>{{item.createTime}}</td>
+                    <td>
+                        <a href="" v-on:click.prevent="del(item.mass)">删除</a>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+    <script>
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+                id:"",
+                mass: "",
+                remark: "",
+                keywords: "",
+
+                list: [
+                    { id: 1, mass: "吃饭", remark: "一食堂走起啊", createTime: new Date() },
+                    { id: 2, mass: "睡觉", remark: "保证充足的睡眠", createTime: new Date() },
+                    { id: 3, mass: "读书", remark: "Vue学习教程", createTime: new Date() },
+                    { id: 4, mass: "打豆豆", remark: "biubiubiu", createTime: new Date() },
+
+                ]
+
+            },
+            methods: {
+
+                add() {
+                    // 不同的日期格式
+                    // var nowdate = new Date();
+                    // var time = nowdate.getFullYear() + "-"
+                    //     + nowdate.getMonth() + "-"
+                    //     + nowdate.getDate() + "   "s
+                    //     + nowdate.getHours() + ":"
+                    //     + nowdate.getMinutes() + ":"
+                    //     + nowdate.getSeconds()
+                    //     ;
+                    if (this.mass != "" && this.remark != "") {
+
+                        // 如果list为空，则新的item的id为1，
+                        // 不为空，则为前一项的id+1;
+
+                        if(this.list.length>0){
+                            var newid = this.list[this.list.length-1].id + 1;
+
+                        }else{
+                            var newid = 1;
+                        }
+
+                        
+                        
+                        var car = { id: newid, mass: this.mass, remark: this.remark, createTime: new Date() };
+                        this.list.push(car);
+                        // this.mass = "";
+                        // this.remark = "";
+                    }
+                },
+
+                delayAdd() {
+
+
+                    // setTimeout(this.add(),1000);
+
+
+                    if (this.mass != "" && this.remark != "") {
+
+                                                // 如果list为空，则新的item的id为1，
+                        // 不为空，则为前一项的id+1;
+
+                        if(this.list.length>0){
+                            var newid = this.list[this.list.length-1].id + 1;
+
+                        }else{
+                            var newid = 1;
+                        }
+
+                        
+                        
+                        var car = { id: newid, mass: this.mass, remark: this.remark, createTime: new Date() };
+                        
+                        
+                        setTimeout(() => { this.list.push(car) }, 1500);
+
+                        // this.mass = "";
+                        // this.remark = "";
+
+
+                    };
+
+
+
+                },
+
+                del(mass) {
+
+                    // 方法一
+                    // this.list.some(
+                    //     (item, i) => {
+                    //         if (item.mass == mass) {
+                    //             this.list.splice(i, 1);
+                    //             return true;
+                    //         }
+                    //     })
+
+
+                    // 方法二
+                    var index = this.list.findIndex(
+                        (item) => {
+                            if (item.mass == mass) {
+                                return true;
+                            }
+                        })
+
+                    this.list.splice(index, 1)
+
+
+
+                },
+
+                search(keywords) {
+
+                    // 方法一
+                    // var newList = [];
+                    // this.list.forEach(
+                    //     item => {
+                    //         if (item.remark.indexOf(keywords) != -1) {
+                    //             newList.push(item);
+                    //         }
+                    //     });
+                    // return newList;
+
+                    // 方法二
+                    var newList = this.list.filter(
+                        item => {
+                            // if(item.remark.indexOf(keywords) != -1)
+
+
+                            if (item.mass.includes(keywords)) {
+                                return item;
+                            }
+                            if (item.remark.includes(keywords)) {
+                                return item;
+                            }
+                            // if(item.createTime.includes(keywords)){
+                            //     return item;
+                            // }
+                        }
+                    )
+
+                    return newList;
+
+
+
+
+
+                }
+
+
+            }
+
+        });
+
+
+    </script>
+
+</body>
+
+</html>

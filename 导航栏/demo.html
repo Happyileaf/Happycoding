@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>lala</title>
+    <link rel="stylesheet" href="nav.css" type="text/css" />
+</head>
+
+<body>
+    <div class="container">
+        <!-- 导航栏 -->
+        <div class="bgbox" id="box">
+            <div class="box1" id="xbox1">
+                <ul>
+                    <li><div class="btn from-left"><a href="#">Home</a></div></li>
+                    <li><div class="btn from-right"><a href="#">Introduction</a></div></li>
+                    <li><div class="btn from-middle"><a href="#">Groups</a></div></li>
+                    <li><div class="btn from-bottom"><a href="#">Projects</a></div></li>
+                    <li><div class="btn from-right"><a href="#">About</a></div></li>
+                    <li><div class="btn from-left"><a href="#">Contact</a></div></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 导航栏开关 -->
+        <div class="bar" onclick="change(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </div>
+    <script> 
+        function change(x) {
+            x.addEventListener('click', function () {
+                if (this.classList.contains('change')) {
+                    this.classList.remove('change');
+                    document.getElementById("box").style.width = "0";
+                    document.getElementById("xbox1").style.display = "none";
+                } else {
+                    this.classList.add('change');
+                    document.getElementById("box").style.width = "100%";
+                    document.getElementById("xbox1").style.display = "block";
+                    
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

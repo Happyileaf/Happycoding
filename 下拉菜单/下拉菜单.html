@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+			font-size: 13px;
+			list-style: none;
+		}
+
+		.menu {
+			width: 15vw;
+			
+			padding: 7vh 5vw;
+
+
+			
+		}
+
+		.menu p {
+			height: 50px;
+			line-height: 50px;
+			font-size: 1.2rem;
+			padding-left: 12%;
+			
+			background: #1ABC9C;
+			
+			cursor: pointer;
+			color: white;
+			
+		}
+
+		.menu div ul {
+			display: none;
+		}
+
+		.menu li {
+			height: 50px;
+			line-height: 50px;
+			padding-left: 12%;
+			font-size: 1.1rem;
+			
+			background: #ECF0F1;
+		}
+
+		.menu li:hover{
+			color: #eee;
+			background: #1ABC9C;
+			transition: 0.3s;
+
+		}
+		.open{
+
+			display: block;
+
+		}
+
+		.close{
+
+			display: none;
+
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function () {
+			var menu = document.getElementById('menu'),
+				ps = menu.getElementsByTagName('p'),
+				uls = menu.getElementsByTagName('ul');
+			for (var i in ps) {
+				ps[i].id = i;
+				ps[i].onclick = function () {
+					var u = uls[this.id];
+					if (u.style.display == 'block') {
+						u.style.display = 'none';
+						u.style.transition = "0.5s";
+					} else {
+						u.style.display = 'block';
+						u.style.transition = "0.5s";
+					}
+
+				}
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div class="menu" id="menu">
+		<div>
+			<p>Web前端</p>
+			<ul>
+				<li>HTML</li>
+				<li>CSS</li>
+				<li>JAVASCRIPT</li>
+			</ul>
+		</div>
+		<div>
+			<p>后台脚本</p>
+			<ul>
+				<li>JAVA</li>
+				<li>PHP</li>
+				<li>ASP.NET</li>
+			</ul>
+		</div>
+		<div>
+			<p>前端框架</p>
+			<ul>
+				<li>VUE</li>
+				<li>REACT</li>
+				<li>ANGULAR</li>
+			</ul>
+		</div>
+	</div>
+</body>
+
+</html>
